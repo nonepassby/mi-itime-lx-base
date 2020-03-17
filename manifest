@@ -1,0 +1,31 @@
+# Name of the image and version
+name="itime-lx-base-0.1.0"
+
+# Build image to use for base of the image.  This image must
+# already exist in the ZFS hierarchy.
+# image ${name}-${version}
+base="centos-7-20180323"
+
+# Organization name (implanted in motd and product)
+organization="Joyent"
+
+# Brand name (implanted in motd and product)
+brand="Instance"
+
+# Description of the image
+description="Description for image itime-lx-base"
+
+# Homepage specific to the image
+homepage="https://github.com/nonepassby/itime-lx-base"
+
+# Metadata users to be created (not real users created)
+users=""
+
+# Role of image (database, loadbalancer, development, hadoop, other, os)
+role="development"
+
+# Minimum amount of ram needed
+minram=""
+
+# new image uuid
+manifest_uuid=""

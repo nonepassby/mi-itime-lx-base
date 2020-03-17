@@ -11,8 +11,9 @@ ZABBIX_SUB="2"
 set -o errexit
 
 # Ensure we have updated standard packages
-echo "* Updating standard packages.";
-yum -y update
+echo "* Updating yum packages.";
+if [ "${skip_yum_update} == "yes" ] || yum -y update
+
 echo "* Install zabbix-agent"
 
 wget https://mirrors.aliyun.com/zabbix/zabbix/${ZABBIX_VERSION}/rhel/7/x86_64/zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
@@ -20,8 +21,7 @@ rpm -i zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
 sed -i \
     -e "s|http://repo.zabbix.com|https://mirrors.aliyun.com/zabbix|g" \
     /etc/yum.repos.d/zabbix.repo
-    
-yum -y update
+
 yum -y install zabbix-agent
 mkdir /var/log/zabbix || true
 chown zabbix:zabbix /var/log/zabbix
@@ -43,7 +43,7 @@ EOF
 echo "* Setup language env"
 cp /etc/skel/.bashrc /root/.bashrc
 source /root/.bashrc
-locale-gen en_US.utf8
+localedef -i en_US -f UTF-8 en_US.utf8
 
 echo "* setup bootstrap startscript"
 touch /var/lib/bootstrap

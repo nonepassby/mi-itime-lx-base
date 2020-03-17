@@ -1,5 +1,5 @@
 # Name of the image and version
-name="itime-lx-base-0.1.0"
+name="itime-lx-base-20180323.0"
 
 # Build image to use for base of the image.  This image must
 # already exist in the ZFS hierarchy.
@@ -16,7 +16,7 @@ brand="Instance"
 description="Description for image itime-lx-base"
 
 # Homepage specific to the image
-homepage="https://github.com/nonepassby/itime-lx-base"
+homepage="https://github.com/nonepassby/mi-itime-lx-base"
 
 # Metadata users to be created (not real users created)
 users=""

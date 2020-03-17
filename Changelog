@@ -1,3 +1,6 @@
-itime-lx-base-0.1.0
+itime-lx-base-20180323.0
 * Base image is centos-7-20180323
 * Initial release
+* add zabbix-agent 4.5-2
+* add bootstrap service
+* add systemd health-check

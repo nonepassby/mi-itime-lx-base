@@ -1,0 +1,21 @@
+#!/bin/bash
+
+FAILED_SERVICES=$(/bin/systemctl list-unit-files --type=service --state=failed --plain | /usr/bin/tail -n +2 | /usr/bin/head -n -2 | /usr/bin/awk '{ print $1 }')
+for service in $FAILED_SERVICES; do
+  /bin/systemctl start "$service"
+  /bin/echo "start $service after failed state (1)"
+done
+
+ENABLED_SERVICES=$(/bin/systemctl list-unit-files --type=service --state=enabled --plain | /usr/bin/tail -n +2 | /usr/bin/head -n -2 | /usr/bin/awk '{ print $1 }')
+for service in $ENABLED_SERVICES; do
+  if [[ "$service" =~ "@" ]]; then
+    /bin/echo "skip $service including an @-sign" > /dev/null
+  else
+    if [[ `/bin/systemctl status "$service" | /bin/grep "Active: " | /usr/bin/awk '{print $2}'` = "failed" ]]; then
+      /bin/systemctl start "$service"
+      /bin/echo "start $service after failed state (2)"
+    fi
+  fi
+done
+
+exit 0

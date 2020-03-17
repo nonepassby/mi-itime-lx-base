@@ -4,16 +4,51 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+ZABBIX_VERSION="4.5"
+ZABBIX_SUB="2"
+
 # Exit if any commands fail
 set -o errexit
 
 # Ensure we have updated standard packages
 echo "* Updating standard packages.";
 yum -y update
-# Configuring image specific packages
-echo "* Configuring image specific packages.";
+echo "* Install zabbix-agent"
+
+wget https://mirrors.aliyun.com/zabbix/zabbix/${ZABBIX_VERSION}/rhel/7/x86_64/zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
+rpm -i zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
+yum -y update
+yum -y install zabbix-agent
+mkdir /var/log/zabbix || true
+chown zabbix:zabbix /var/log/zabbix
+mkdir /etc/zabbix/zabbix_agentd.conf.d || true
+
+echo "* Add bash extensions"
+cat >> /etc/skel/.bashrc << EOF
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+alias la="ls -al"
+alias t="cd /var/log/ && tail -n 50 -f "
+alias msg="/usr/bin/tail -n 50 -f /var/log/syslog"
+HISTSIZE=2000
+HISTFILESIZE=25000
+HISTTIMEFORMAT="[%d.%m.%Y %T] "
+export LANGUAGE=en_US.utf8
+export LANG=en_US.utf8
+EOF
+
+echo "* Setup language env"
+cp /etc/skel/.bashrc /root/.bashrc
+source /root/.bashrc
+locale-gen en_US.utf8
+
+echo "* setup bootstrap startscript"
+touch /var/lib/bootstrap
+systemctl daemon-reload
+systemctl enable /etc/systemd/system/bootstrap.service
 
 # Clean up
 echo "* Cleaning up."
 rm -rf /root/*
+rm /var/lib/bootstrap 2>/dev/null || true
+rm /root/.bash_history 2>/dev/null || true
 history -c

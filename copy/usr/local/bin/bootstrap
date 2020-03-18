@@ -2,6 +2,8 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/native/usr/sbin
 
+ip a > /var/lib/nicsinfo
+
 # only run once
 if [[ -f /var/lib/bootstrap ]]; then exit 0; fi
 touch /var/lib/bootstrap

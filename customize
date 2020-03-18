@@ -12,7 +12,7 @@ set -o errexit
 
 # Ensure we have updated standard packages
 echo "* Updating yum packages.";
-[[ "${skip_yum_update} == "yes" ]] || yum -y update
+[[ "${skip_yum_update}" == "yes" ]] || yum -y update
 
 echo "* Install zabbix-agent"
 

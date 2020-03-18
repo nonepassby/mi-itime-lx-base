@@ -10,10 +10,6 @@ ZABBIX_SUB="2"
 # Exit if any commands fail
 set -o errexit
 
-# Ensure we have updated standard packages
-echo "* Updating yum packages.";
-[[ "${skip_yum_update}" == "yes" ]] || yum -y update
-
 echo "* Install zabbix-agent"
 
 wget https://mirrors.aliyun.com/zabbix/zabbix/${ZABBIX_VERSION}/rhel/7/x86_64/zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm

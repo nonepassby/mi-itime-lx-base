@@ -45,6 +45,9 @@ cp /etc/skel/.bashrc /root/.bashrc
 source /root/.bashrc
 localedef -i en_US -f UTF-8 en_US.utf8
 
+chmod +x /usr/local/bin/bootstrap
+chmod +x /usr/local/bin/mdata-setup
+
 echo "* setup bootstrap startscript"
 touch /var/lib/bootstrap
 systemctl daemon-reload

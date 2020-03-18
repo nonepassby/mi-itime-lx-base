@@ -25,7 +25,7 @@ mkdir /etc/zabbix/zabbix_agentd.conf.d || true
 
 echo "* Add bash extensions"
 cat >> /etc/skel/.bashrc << EOF
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\\$ '
 alias la="ls -al"
 alias t="cd /var/log/ && tail -n 50 -f "
 alias msg="/usr/bin/tail -n 50 -f /var/log/syslog"

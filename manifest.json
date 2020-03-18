@@ -17,6 +17,13 @@
     "ssh_host_dsa_key.pub":  {"type": "text", "description": "public SSH dsa key for the host daemon"},
     "zabbix_server":         {"type": "text", "description": "zabbix server hostname (alternative ip address)"},
     "zabbix_pski":           {"type": "text", "description": "zabbix PSKIdentity"},
-    "zabbix_psk":            {"type": "text", "description": "zabbix PSK"}
+    "zabbix_psk":            {"type": "text", "description": "zabbix PSK"},
+    "ssh_password_auth":     {"type": "text", "description": "set ssh PasswordAuthentication. yes|no"},
+    "ssh_port":              {"type": "text", "description": "set ssh Port"},
+    "selinux_disabled":      {"type": "text", "description": "set selinux disabled. yes|no"},
+    "timezone":              {"type": "text", "description": "set system timezone."}
+  },
+  "internal_metadata": {
+    "*_pw":                  {"type": "text", "description": "set user password, * is username"}
   }
 }

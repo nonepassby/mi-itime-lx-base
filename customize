@@ -14,7 +14,7 @@ echo "* Install zabbix-agent"
 
 wget https://mirrors.aliyun.com/zabbix/zabbix/${ZABBIX_VERSION}/rhel/7/x86_64/zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
 rpm -i zabbix-release-${ZABBIX_VERSION}-${ZABBIX_SUB}.el7.noarch.rpm
-sed -i \
+gsed -i \
     -e "s|http://repo.zabbix.com|https://mirrors.aliyun.com/zabbix|g" \
     /etc/yum.repos.d/zabbix.repo
 

@@ -10,7 +10,7 @@ if mdata-get zabbix_pski 1>/dev/null 2>&1; then
     chmod 0400 /etc/zabbix/zabbix_agentd.psk
     chown zabbix:zabbix /etc/zabbix/zabbix_agentd.psk
 
-    sed -i \
+    gsed -i \
         -e "s|# TLSAccept=unencrypted|TLSAccept=psk|" \
         -e "s|# TLSConnect=unencrypted|TLSConnect=psk|" \
         -e "s|# TLSPSKIdentity=|TLSPSKIdentity=${PSKI}|" \
@@ -22,13 +22,13 @@ fi
 
 if mdata-get zabbix_server 1>/dev/null 2>&1; then
   ZABBIX_SERVER=$(mdata-get zabbix_server)
-  sed -i \
+  gsed -i \
       -e "s|Server=127.0.0.1|Server=${ZABBIX_SERVER}|" \
       -e "s|ServerActive=127.0.0.1|ServerActive=${ZABBIX_SERVER}|" \
       /etc/zabbix/zabbix_agentd.conf
 
   HOSTNAME=$(/bin/hostname)
-  sed -i \
+  gsed -i \
       -e "s|LogFile=/tmp/zabbix_agentd.log|LogFile=/var/log/zabbix/zabbix_agentd.log|" \
       -e "s|Hostname=Zabbix server|Hostname=${HOSTNAME}|" \
       /etc/zabbix/zabbix_agentd.conf
